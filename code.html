@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nova Studio | طراحی مدرن</title>
+    <style>
+      :root {
+        --bg: #0a0d14;
+        --bg-soft: #121826;
+        --panel: rgba(255, 255, 255, 0.05);
+        --panel-strong: rgba(255, 255, 255, 0.08);
+        --text: #eef3ff;
+        --muted: #a7b1c7;
+        --primary: #8b5cf6;
+        --secondary: #38bdf8;
+        --accent: #f59e0b;
+        --line: rgba(255, 255, 255, 0.08);
+        --shadow: 0 20px 50px rgba(13, 17, 27, 0.5);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(139, 92, 246, 0.25), transparent 24%),
+          radial-gradient(circle at top right, rgba(56, 189, 248, 0.2), transparent 25%),
+          linear-gradient(180deg, #070b12 0%, #0d121b 100%);
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(18px);
+        background: rgba(8, 11, 17, 0.6);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 80px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+        font-size: 1.15rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 999px;
+        padding: 14px 24px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        transition: 0.2s ease;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        box-shadow: 0 15px 35px rgba(110, 92, 246, 0.45);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--line);
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 72px 0 40px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(139, 92, 246, 0.12);
+        color: #d7c6ff;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        margin: 0 0 20px;
+        font-size: clamp(2.8rem, 4vw, 5rem);
+        line-height: 1.06;
+        letter-spacing: -0.05em;
+      }
+
+      .highlight {
+        background: linear-gradient(135deg, #d8c6ff, #8fe3ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 620px;
+      }
+
+      .hero-actions {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .hero-stats {
+        margin-top: 36px;
+        display: flex;
+        gap: 26px;
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        min-width: 120px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.7rem;
+        margin-bottom: 4px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .hero-visual {
+        position: relative;
+      }
+
+      .card-stack {
+        position: relative;
+        width: min(480px, 100%);
+        margin: 0 auto;
+      }
+
+      .main-panel {
+        position: relative;
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .main-panel img {
+        width: 100%;
+        height: 560px;
+        object-fit: cover;
+      }
+
+      .floating-card {
+        position: absolute;
+        background: rgba(15, 20, 30, 0.88);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        border-radius: 18px;
+        padding: 14px 16px;
+      }
+
+      .mini-1 {
+        right: -24px;
+        bottom: 90px;
+        width: 170px;
+      }
+
+      .mini-2 {
+        left: -24px;
+        top: 80px;
+        width: 155px;
+      }
+
+      .mini-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4ade80, #2dd4bf);
+        box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.15);
+      }
+
+      .chart-bar {
+        display: flex;
+        gap: 6px;
+        align-items: end;
+        height: 80px;
+      }
+
+      .chart-bar span {
+        display: inline-block;
+        width: 14px;
+        border-radius: 10px 10px 0 0;
+        background: linear-gradient(180deg, var(--secondary), var(--primary));
+      }
+
+      .chart-bar span:nth-child(1) { height: 30%; }
+      .chart-bar span:nth-child(2) { height: 55%; }
+      .chart-bar span:nth-child(3) { height: 85%; }
+      .chart-bar span:nth-child(4) { height: 70%; }
+      .chart-bar span:nth-child(5) { height: 100%; }
+
+      .section {
+        padding: 90px 0;
+      }
+
+      .section-head {
+        text-align: center;
+        margin-bottom: 42px;
+      }
+
+      .section-head small {
+        color: #d5c1ff;
+        letter-spacing: 0.14em;
+        font-size: 0.73rem;
+        text-transform: uppercase;
+      }
+
+      .section-head h2 {
+        margin: 14px 0 0;
+        font-size: clamp(2rem, 3vw, 3rem);
+        letter-spacing: -0.04em;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .feature-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 28px 24px;
+        transition: 0.25s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(139, 92, 246, 0.45);
+      }
+
+      .icon-box {
+        width: 56px;
+        height: 56px;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+        font-size: 1.4rem;
+        background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(56,189,248,0.15));
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .feature-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.35rem;
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .showcase {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 22px;
+      }
+
+      .project {
+        position: relative;
+        min-height: 360px;
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #111827;
+      }
+
+      .project img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(1.05) contrast(1.05);
+      }
+
+      .project .overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(8, 12, 18, 0.1), rgba(8, 12, 18, 0.8));
+        display: flex;
+        align-items: flex-end;
+        padding: 22px;
+      }
+
+      .project-info {
+        width: 100%;
+      }
+
+      .project-info span {
+        display: inline-block;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #d7c0ff;
+      }
+
+      .project-info h3 {
+        margin: 10px 0 0;
+        font-size: 1.7rem;
+      }
+
+      .testimonials {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .quote-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 24px;
+      }
+
+      .stars {
+        color: #fbbf24;
+        letter-spacing: 0.15em;
+        margin-bottom: 12px;
+      }
+
+      .quote-card p {
+        margin: 0 0 18px;
+        color: var(--muted);
+      }
+
+      .person {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .person img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .person small {
+        display: block;
+        color: var(--muted);
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .price-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: 28px 22px;
+      }
+
+      .price-card.featured {
+        background: linear-gradient(180deg, rgba(139,92,246,0.12), rgba(8,13,18,0.4));
+        border-color: rgba(139,92,246,0.5);
+        box-shadow: 0 18px 48px rgba(139, 92, 246, 0.18);
+      }
+
+      .price-card h3 {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+
+      .price {
+        margin: 18px 0;
+        font-size: 2.3rem;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+      }
+
+      .price small {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .price-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 24px;
+        color: var(--muted);
+      }
+
+      .price-card li {
+        margin-bottom: 10px;
+      }
+
+      .price-card li::before {
+        content: "✓";
+        color: #7dd3fc;
+        margin-left: 10px;
+        font-weight: 800;
+      }
+
+      .cta {
+        margin-top: 20px;
+        padding: 26px 30px;
+        border-radius: 30px;
+        border: 1px solid var(--line);
+        background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(56,189,248,0.08));
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .cta h3 {
+        margin: 0 0 6px;
+        font-size: clamp(1.6rem, 2vw, 2.2rem);
+      }
+
+      .cta p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      footer {
+        padding: 28px 0 50px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border-top: 1px solid var(--line);
+        padding-top: 28px;
+      }
+
+      .socials {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .socials a {
+        width: 38px;
+        height: 38px;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .features,
+        .showcase,
+        .testimonials,
+        .pricing {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero { padding-top: 36px; }
+      }
+
+      @media (max-width: 620px) {
+        .nav-actions .btn-secondary {
+          display: none;
+        }
+
+        .cta {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-stats {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <span>Nova Studio</span>
+        </div>
+
+        <nav class="nav-links" aria-label="منو اصلی">
+          <a href="#home">خانه</a>
+          <a href="#features">خدمات</a>
+          <a href="#projects">نمونه‌کارها</a>
+          <a href="#reviews">نظرات</a>
+          <a href="#pricing">قیمت‌ها</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a class="btn btn-secondary" href="#pricing">مشاهده قیمت</a>
+          <a class="btn btn-primary" href="#contact">شروع همکاری</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">طراحی برند و تجربه دیجیتال</span>
+            <h1>
+              تجربه‌ای <span class="highlight">شیک‌تر</span>
+              برای برند شما
+            </h1>
+            <p>
+              ما با ترکیب خلاقیت، استراتژی و فناوری، برندهایی مدرن و ماندگار می‌سازیم
+              تا در ذهن مخاطب به یادماندنی و قابل‌تشخیص شوند.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#projects">مشاهده نمونه‌ها</a>
+              <a class="btn btn-secondary" href="#features">بیشتر بدانید</a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat">
+                <strong>120+</strong>
+                <span>پروژه موفق</span>
+              </div>
+              <div class="stat">
+                <strong>4.9</strong>
+                <span>امتیاز مشتریان</span>
+              </div>
+              <div class="stat">
+                <strong>8Y</strong>
+                <span>تجربه در صنعت</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="تصویر پروژه">
+            <div class="card-stack">
+              <div class="floating-card mini-1">
+                <div class="mini-head">
+                  <span>فروش ماهانه</span>
+                  <span class="dot"></span>
+                </div>
+                <div class="chart-bar">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <div class="floating-card mini-2">
+                <div class="mini-head">
+                  <span>رشد برند</span>
+                  <span>+76%</span>
+                </div>
+                <div class="chart-bar">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <div class="main-panel">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="تیم طراحی" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-head">
+            <small>چرا ما؟</small>
+            <h2>راه‌حل‌هایی که برندی متمایز می‌سازند</h2>
+          </div>
+
+          <div class="features">
+            <article class="feature-card">
+              <div class="icon-box">✦</div>
+              <h3>طراحی برند</h3>
+              <p>ایجاد هویت بصری جذاب، حرفه‌ای و به‌یادماندنی برای کسب‌وکار شما.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon-box">◎</div>
+              <h3>تجربه کاربری</h3>
+              <p>ساخت رابط‌های ساده، روان و تاثیرگذار که کاربران را به خرید و تعامل ترغیب می‌کند.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="icon-box">▣</div>
+              <h3>توسعه سایت</h3>
+              <p>پیاده‌سازی سریع، سبک و پاسخ‌گو با تمرکز بر عملکرد، سرعت و امنیت.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="container">
+          <div class="section-head">
+            <small>نمونه‌کارها</small>
+            <h2>کارهایی که با حس و دقت ساخته شده‌اند</h2>
+          </div>
+
+          <div class="showcase">
+            <article class="project">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="پروژه برندینگ" />
+              <div class="overlay">
+                <div class="project-info">
+                  <span>Brand Identity</span>
+                  <h3>لکسوس‌مدیا</h3>
+                </div>
+              </div>
+            </article>
+
+            <article class="project">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="پروژه استارتاپ" />
+              <div class="overlay">
+                <div class="project-info">
+                  <span>Startup</span>
+                  <h3>آرتیوم</h3>
+                </div>
+              </div>
+            </article>
+
+            <article class="project">
+              <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80" alt="پروژه فروشگاه" />
+              <div class="overlay">
+                <div class="project-info">
+                  <span>E-commerce</span>
+                  <h3>میدیا‌تاپ</h3>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="reviews">
+        <div class="container">
+          <div class="section-head">
+            <small>نظرات مشتریان</small>
+            <h2>آنچه درباره همکاری ما می‌گویند</h2>
+          </div>
+
+          <div class="testimonials">
+            <article class="quote-card">
+              <div class="stars">★★★★★</div>
+              <p>«از اول تا آخر پروژه، حس حرفه‌ای بودن و دقت در جزئیات دیده می‌شد. برند ما کاملاً با فرهنگ کسب‌وکارمون هم‌راستا شد.»</p>
+              <div class="person">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="مشتری 1" />
+                <div>
+                  <strong>سارا محمدی</strong>
+                  <small>مدیر برند</small>
+                </div>
+              </div>
+            </article>
+
+            <article class="quote-card">
+              <div class="stars">★★★★★</div>
+              <p>«پیاده‌سازی سایت خیلی سریع و دقیق انجام شد. به‌ویژه بخش تجربه کاربری و طراحی بسیار جذاب و حرفه‌ای بود.»</p>
+              <div class="person">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="مشتری 2" />
+                <div>
+                  <strong>علی رضایی</strong>
+                  <small>مالک کسب‌وکار</small>
+                </div>
+              </div>
+            </article>
+
+            <article class="quote-card">
+              <div class="stars">★★★★★</div>
+              <p>«تیم Nova به‌سادگی نیازهای ما را درک کرد و نتیجه‌ای فراتر از انتظار ارائه داد. واقعاً یک همکاری عالی بود.»</p>
+              <div class="person">
+                <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&q=80" alt="مشتری 3" />
+                <div>
+                  <strong>نوشین احمدی</strong>
+                  <small>مدیر دیجیتال</small>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pricing">
+        <div class="container">
+          <div class="section-head">
+            <small>قیمت‌ها</small>
+            <h2>بسته‌ای متناسب با رشد شما</h2>
+          </div>
+
+          <div class="pricing">
+            <article class="price-card">
+              <h3>شروعین</h3>
+              <div class="price">۲.۴<span><small>میلیون تومان</small></span></div>
+              <ul>
+                <li>طراحی صفحه فرود</li>
+                <li>رابط کاربری مدرن</li>
+                <li>پشتیبانی ۳۰ روزه</li>
+              </ul>
+              <a class="btn btn-secondary" href="#contact">انتخاب این پلن</a>
+            </article>
+
+            <article class="price-card featured">
+              <h3>پرو</h3>
+              <div class="price">۵.۹<span><small>میلیون تومان</small></span></div>
+              <ul>
+                <li>طراحی کامل سایت</li>
+                <li>بهینه‌سازی سئو و سرعت</li>
+                <li>پشتیبانی نامحدود</li>
+              </ul>
+              <a class="btn btn-primary" href="#contact">انتخاب این پلن</a>
+            </article>
+
+            <article class="price-card">
+              <h3>کسب‌وکار</h3>
+              <div class="price">۹.۸<span><small>میلیون تومان</small></span></div>
+              <ul>
+                <li>طراحی ویژه برند</li>
+                <li>مدیریت محتوا</li>
+                <li>تحلیل و رشد مداوم</li>
+              </ul>
+              <a class="btn btn-secondary" href="#contact">انتخاب این پلن</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="container">
+          <div class="cta">
+            <div>
+              <h3>برای ساختن یک برند ماندگار آماده‌ای؟</h3>
+              <p>همین امروز با ما صحبت کنید و ایده‌تان را به یک تجربه دیجیتال عالی تبدیل کنیم.</p>
+            </div>
+            <a class="btn btn-primary" href="mailto:hello@novastudio.com">hello@novastudio.com</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div class="brand">
+          <div class="brand-mark">N</div>
+          <span>Nova Studio</span>
+        </div>
+
+        <div>© 2026 همه حقوق محفوظ است</div>
+
+        <div class="socials" aria-label="شبکه‌های اجتماعی">
+          <a href="#">in</a>
+          <a href="#">ig</a>
+          <a href="#">x</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
